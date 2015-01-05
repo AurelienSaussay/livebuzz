@@ -11,5 +11,4 @@ import scrapy
 class LivebuzzItem(scrapy.Item):
     title = scrapy.Field()
     url = scrapy.Field()
-    content = scrapy.Field()
     keywords = scrapy.Field()
