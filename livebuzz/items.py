@@ -8,7 +8,7 @@
 import scrapy
 
 
-class LivebuzzItem(scrapy.Item):
-    title = scrapy.Field()
+class ArticleItem(scrapy.Item):
     url = scrapy.Field()
+    title = scrapy.Field()
     keywords = scrapy.Field()

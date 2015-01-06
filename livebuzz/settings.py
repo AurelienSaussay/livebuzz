@@ -13,5 +13,16 @@ BOT_NAME = 'livebuzz'
 SPIDER_MODULES = ['livebuzz.spiders']
 NEWSPIDER_MODULE = 'livebuzz.spiders'
 
+DATABASE = {'drivername': 'postgres',
+            'host': 'localhost',
+            'port': '5432',
+            'username': 'postgres',
+            'password': 'pouet',
+            'database': 'livebuzz'}
+
+ITEM_PIPELINES = {
+    'livebuzz.pipelines.LivebuzzPipeline': 300,
+}
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'livebuzz (+http://www.yourdomain.com)'
