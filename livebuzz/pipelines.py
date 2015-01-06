@@ -5,26 +5,43 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
+import scrapy
+
 from sqlalchemy.orm import sessionmaker
 from models import Articles, db_connect, create_articles_table
 
-class LivebuzzPipeline(object):
+
+class ArticlePipeline(object):
     def __init__(self):
         engine = db_connect()
         create_articles_table(engine)
         self.Session = sessionmaker(bind = engine)
 
+
+class ArticleValidate(ArticlePipeline):
     def process_item(self, item, spider):
         session = self.Session()
-        article = Articles(**item)
 
-        try:
-            session.add(article)
-            session.commit()
-        except:
-            session.rollback()
-            raise
-        finally:
-            session.close()
+        # Check if the article has already been parsed
+        if session.query(Articles.id).filter(Articles.url == item['url']).count() == 0:
+            return item
+        else:
+            spider.log('Article "%s" has already been parsed' % item['title'], level=scrapy.log.DEBUG)
 
-        return item
+
+class ArticleSave(ArticlePipeline):
+    def process_item(self, item, spider):
+        if item is not None:
+            session = self.Session()
+            article = Articles(**item)
+
+            try:
+                session.add(article)
+                session.commit()
+            except:
+                session.rollback()
+                raise
+            finally:
+                session.close()
+
+            return item
