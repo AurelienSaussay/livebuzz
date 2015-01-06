@@ -11,4 +11,5 @@ import scrapy
 class ArticleItem(scrapy.Item):
     url = scrapy.Field()
     title = scrapy.Field()
+    source = scrapy.Field()
     keywords = scrapy.Field()

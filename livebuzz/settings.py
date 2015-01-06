@@ -21,7 +21,8 @@ DATABASE = {'drivername': 'postgres',
             'database': 'livebuzz'}
 
 ITEM_PIPELINES = {
-    'livebuzz.pipelines.LivebuzzPipeline': 300,
+    'livebuzz.pipelines.ArticleValidate': 300,
+    'livebuzz.pipelines.ArticleSave': 600,
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

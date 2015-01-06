@@ -20,4 +20,5 @@ class Articles(DeclarativeBase):
     id = Column(Integer, primary_key=True)
     url = Column('url', String)
     title = Column('title', String)
+    source = Column('source', String)
     keywords = Column('keywords', ARRAY(String))

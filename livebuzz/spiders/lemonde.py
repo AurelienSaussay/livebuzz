@@ -31,8 +31,9 @@ class LeMondeSpider(CrawlSpider):
         if len(response.css('h1').xpath('text()')) > 0:
             item = ArticleItem()
             article = remove_tags(Document(response.body).summary())
-            item['title'] = response.css('h1').xpath("text()").extract()[0].strip()
             item['url'] = response.url
+            item['source'] = "Le Monde"
+            item['title'] = response.css('h1').xpath("text()").extract()[0].strip()
             #content = lxml.html.document_fromstring(article, parser = lxml.html.HTMLParser(encoding='utf-8')).text_content()
             words = set(re.findall(r"[\w]+", article, flags = re.UNICODE | re.IGNORECASE))
             item['keywords'] = list(words.difference(syntax))
