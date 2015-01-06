@@ -25,7 +25,7 @@ class BaseSpider(CrawlSpider):
         item['source'] = self.__class__.source
         item['title'] = re.sub(r'" (.*) "', ur'« \1 »', doc.short_title(), flags = re.UNICODE)
         words = set(re.findall(r"[\w]+", remove_tags(doc.summary()), flags = re.UNICODE | re.IGNORECASE))
-        item['keywords'] = list(words.difference(syntax))
+        item['keywords'] = list(words)  #.difference(syntax))
         return item
 
 
