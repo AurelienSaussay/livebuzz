@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.engine.url import URL
@@ -34,3 +34,4 @@ class Share(DeclarativeBase):
     id = Column(Integer, primary_key=True)
     article_id = Column(Integer, ForeignKey('articles.id'))
     count = Column(Integer)
+    time = Column(DateTime)
