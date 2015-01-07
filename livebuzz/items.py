@@ -13,3 +13,8 @@ class ArticleItem(scrapy.Item):
     title = scrapy.Field()
     source = scrapy.Field()
     keywords = scrapy.Field()
+
+class ShareItem(scrapy.Item):
+    article_id = scrapy.Field()
+    count = scrapy.Field()
+    time = scrapy.Field()

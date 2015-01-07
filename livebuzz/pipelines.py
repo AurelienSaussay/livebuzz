@@ -8,7 +8,7 @@
 import scrapy
 
 from sqlalchemy.orm import sessionmaker
-from models import Articles, db_connect, create_articles_table
+from models import Article, db_connect, create_articles_table
 
 
 class ArticlePipeline(object):
@@ -23,7 +23,7 @@ class ArticleValidate(ArticlePipeline):
         session = self.Session()
 
         # Check if the article has already been parsed
-        if session.query(Articles.id).filter(Articles.url == item['url']).count() == 0:
+        if session.query(Article.id).filter(Article.url == item['url']).count() == 0:
             return item
         else:
             spider.log('Article "%s" has already been parsed' % item['title'], level=scrapy.log.DEBUG)
@@ -33,7 +33,7 @@ class ArticleSave(ArticlePipeline):
     def process_item(self, item, spider):
         if item is not None:
             session = self.Session()
-            article = Articles(**item)
+            article = Article(**item)
 
             try:
                 session.add(article)
